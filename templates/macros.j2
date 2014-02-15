@@ -35,7 +35,7 @@
           '! -d', args.not_destination,
           '-p',   'tcp' if args.proto is undefined and args.not_proto is undefined else args.proto,
           '! -p', args.not_proto,
-          dport_opt, args.dports|replace(' ', '') if args.dports is defined else False
+          dport_opt, args.dports|replace(' ', '') if args.dports is defined else False,
           *varargs)
 -}}
 % endmacro
