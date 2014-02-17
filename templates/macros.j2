@@ -19,7 +19,11 @@
 % endmacro
 
 % macro build_rule(chain, args)
-%     set dport_opt = '-m multiport --dports' if ',' in args.dports|string else '--dport'
+%     if args.dports is defined and ',' in args.dports|string:
+%         set dport_opt = '-m multiport --dports'
+%     else:
+%         set dport_opt = '--dport'
+%     endif
 {{    comment(args.comment) -}}
 {{    join_params(
           '-4',   args.ipv4only is defined and iptables_ipv6,
