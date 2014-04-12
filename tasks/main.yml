@@ -14,6 +14,7 @@
     src=rules.iptables.j2
     dest="{{ iptables_rules_file }}"
     validate="{{ iptables_validate_cmd }}"
+    owner=root group=root mode=644
   notify:
     - reload iptables
     - reload ip6tables
