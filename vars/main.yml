@@ -8,6 +8,6 @@ iptables_ipv6_nat: "{{ true if (iptables_redirects + iptables_forwards + iptable
 iptables_ipv6_cmd_args: "{{ '' if iptables_ipv6_nat|bool else '-T filter' }}"
 
 # Command to validate the IPv4 rules file and IPv6 rules only when enabled.
-iptables_validate_cmd: "file=%s; \
+iptables_validate_cmd: "bash -c 'file=%s; \
     iptables-restore -t $file \
-    {% if iptables_ipv6 %}&& ip6tables-restore {{ iptables_ipv6_cmd_args }} -t $file{% endif %}"
+    {% if iptables_ipv6 %}&& ip6tables-restore {{ iptables_ipv6_cmd_args }} -t $file{% endif %}'"
