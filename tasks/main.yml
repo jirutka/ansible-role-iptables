@@ -3,6 +3,12 @@
   portage: package=net-firewall/iptables
   tags: packages
 
+- name: create destination directory for rules config
+  file: >
+    path="{{ iptables_rules_file | dirname }}"
+    recurse=true
+    state=directory
+
 - name: configure rules
   template: >
     src=rules.iptables.j2
