@@ -4,7 +4,7 @@ galaxy_info:
   company: CTU in Prague
   description: Manage ip(6)tables rules
   license: MIT
-  min_ansible_version: 1.4.5
+  min_ansible_version: 1.6
   platforms:
     - name: Gentoo
   categories:

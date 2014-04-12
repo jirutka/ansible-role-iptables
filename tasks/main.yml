@@ -1,7 +1,7 @@
 ---
-#- name: install iptables
-#  emerge: name=net-firewall/iptables state=present
-#  tags: packages
+- name: install iptables
+  portage: package=net-firewall/iptables
+  tags: packages
 
 - name: configure rules
   template: >
