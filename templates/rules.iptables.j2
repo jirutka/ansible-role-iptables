@@ -32,7 +32,7 @@
 
 # Base policy
 :INPUT DROP [0:0]
-:FORWARD DROP [0:0]
+:FORWARD {{ 'ACCEPT' if iptables_ip_forward | bool else 'DROP' }} [0:0]
 :OUTPUT ACCEPT [0:0]
 
 # Don't attempt to firewall internal traffic on the loopback device
