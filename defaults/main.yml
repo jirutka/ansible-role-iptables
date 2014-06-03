@@ -49,11 +49,11 @@ iptables_drop_broadcast: true
 #
 
 # The input - accept rules.
-# 
+#
 iptables_allowed: []
 
 # The redirect rules
-# 
+#
 # This is useful if you have, for example, local HTTP server listening on the unprivileged port
 # 8080 and wants to accept connections from the port 80, without reconfiguring the HTTP server to
 # listen on this port.

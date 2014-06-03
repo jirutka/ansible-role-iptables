@@ -1,10 +1,10 @@
 # {{ ansible_managed }}
 
-# Location in which iptables initscript will save set rules on 
+# Location in which iptables initscript will save set rules on
 # service shutdown
 IP6TABLES_SAVE="{{ iptables_rules_file }}"
 
-# Options to pass to iptables-save and iptables-restore 
+# Options to pass to iptables-save and iptables-restore
 # Use -T <table> to restore only the named table and ignore others.
 SAVE_RESTORE_OPTIONS="{{ iptables_ipv6_cmd_args }}"
 

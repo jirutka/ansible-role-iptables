@@ -2,15 +2,15 @@
 {% from 'macros.j2' import build_rule with context -%}
 # {{ ansible_managed }}
 #
-# This file is in ip(6)tables-restore format. See the man pages for 
+# This file is in ip(6)tables-restore format. See the man pages for
 # ip(6)tables-restore and ip(6)tables-save.
 #
-# The following is a set of firewall rules that should be applicable to Linux 
-# servers running within departments. It is intended to provide a useful 
-# starting point from which to devise a comprehensive firewall policy for 
+# The following is a set of firewall rules that should be applicable to Linux
+# servers running within departments. It is intended to provide a useful
+# starting point from which to devise a comprehensive firewall policy for
 # a host.
 #
-# Parts 1 and 3 of these rules are the same for each host, whilst part 2 can be 
+# Parts 1 and 3 of these rules are the same for each host, whilst part 2 can be
 # populated with rules specific to particular hosts. The optional part 4 is
 # prepared for a NAT rules, e.g. for port forwarding, redirect, masquerade...
 #
@@ -38,7 +38,7 @@
 # Don't attempt to firewall internal traffic on the loopback device
 -A INPUT -i lo -j ACCEPT
 
-# Continue connections that are already established or related to an established 
+# Continue connections that are already established or related to an established
 # connection
 -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 
@@ -61,8 +61,8 @@
 {% endif %}
 {% set (_hitcount, _seconds) = iptables_ssh_limit_per_sec.split('/') %}
 # Chain for preventing SSH brute-force attacks.
-# Permits {{ _hitcount }} new connections within {{ _seconds }} seconds from a single host then drops 
-# incomming connections from that host. Beyond a burst of 100 connections we 
+# Permits {{ _hitcount }} new connections within {{ _seconds }} seconds from a single host then drops
+# incomming connections from that host. Beyond a burst of 100 connections we
 # log at up 1 attempt per second to prevent filling of logs
 -N SSHBRUTE
 -A SSHBRUTE -m recent --name SSH --set
@@ -70,8 +70,8 @@
 -A SSHBRUTE -m recent --name SSH --update --seconds {{ _seconds }} --hitcount {{ _hitcount }} -j DROP
 -A SSHBRUTE -j ACCEPT
 
-# Chain for preventing ping flooding - up to 6 pings per second from a single 
-# source, again with log limiting. Also prevents us from ICMP REPLY flooding 
+# Chain for preventing ping flooding - up to 6 pings per second from a single
+# source, again with log limiting. Also prevents us from ICMP REPLY flooding
 # some victim when replying to ICMP ECHO from a spoofed source
 -N ICMPFLOOD
 -A ICMPFLOOD -m recent --set --name ICMP --rsource
@@ -107,7 +107,7 @@
 # This section contains general rules that should be suitable for most hosts. #
 ###############################################################################
 
-# Accept worldwide access to SSH and use SSHBRUTE chain for preventing 
+# Accept worldwide access to SSH and use SSHBRUTE chain for preventing
 # brute-force attacks.
 -A INPUT -p tcp --dport 22 --syn -m conntrack --ctstate NEW -j SSHBRUTE
 
@@ -143,7 +143,7 @@
 -6 -A INPUT -s fe80::/10 -p ipv6-icmp --icmpv6-type 153 -j ACCEPT
 
 {% endif %}
-# Permit IMCP echo requests (ping) and use ICMPFLOOD chain for preventing ping 
+# Permit IMCP echo requests (ping) and use ICMPFLOOD chain for preventing ping
 # flooding.
 -4 -A INPUT -p icmp --icmp-type 8  -m conntrack --ctstate NEW -j ICMPFLOOD
 {% if iptables_ipv6 -%}
