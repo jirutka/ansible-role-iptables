@@ -209,7 +209,7 @@ COMMIT
 {% endfor %}
 {% for params in iptables_masquerades %}
 {{
-     build_rule('PREROUTING', params,
+     build_rule('POSTROUTING', params,
        '-j', 'MASQUERADE')
 }}
 
