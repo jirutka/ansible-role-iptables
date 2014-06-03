@@ -2,7 +2,7 @@
 - name: setup IP forwarding for IPv4
   sysctl: >
     name=net.ipv4.ip_forward
-    value={{ iptables_ip_forward }}
+    value={{ '1' if iptables_ip_forward|bool else '0' }}
   tags: configuration
 
 - name: configure init script
