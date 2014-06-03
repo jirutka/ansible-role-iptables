@@ -3,13 +3,14 @@
   sysctl: >
     name=net.ipv4.ip_forward
     value={{ '1' if iptables_ip_forward|bool else '0' }}
-  tags: configuration
+  tags: config
 
 - name: configure init script
   template: >
     src=conf.d/iptables.j2
     dest=/etc/conf.d/iptables
-  tags: configuration
+  tags: config
 
 - name: start iptables and add to boot runlevel
   service: name=iptables enabled=true runlevel=boot state=started
+  tags: services

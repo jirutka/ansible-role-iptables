@@ -1,13 +1,14 @@
 ---
 - name: install iptables
   portage: package=net-firewall/iptables
-  tags: packages
+  tags: [packages, install]
 
 - name: create destination directory for rules config
   file: >
     path="{{ iptables_rules_file | dirname }}"
     recurse=true
     state=directory
+  tags: install
 
 - name: configure rules
   template: >
@@ -18,14 +19,14 @@
   notify:
     - reload iptables
     - reload ip6tables
-  tags: configuration
+  tags: config
 
 - name: disable IPv6 on all interfaces
   sysctl: >
     name=net.ipv6.conf.all.disable_ipv6
     value=1
   when: not iptables_ipv6
-  tags: configuration
+  tags: config
 
 - include: ipv4.yml
 
